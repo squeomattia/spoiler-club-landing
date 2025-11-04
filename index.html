@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Spoiler Club — Laboratorio creativo audio-video</title>
+  <meta name="description" content="Spoiler è un collettivo di professionisti che realizza servizi audio-video a 360°. Location per podcast ed eventi, riprese, montaggi, color, editing audio, mix e mastering." />
+  <meta property="og:title" content="Spoiler Club — Laboratorio creativo audio-video" />
+  <meta property="og:description" content="Servizi audio-video a 360°. Location per podcast ed eventi fino a 50 persone." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/og-image.jpg" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <style>
+    :root{
+      --bg:#0b0b10;--card:#12121a;--ink:#eaeaf2;--muted:#b7b7c7;--brand:#7c5cff;--brand-2:#3dd6ed;--ring:0 0 0 3px #7c5cff55;--maxw:1100px;--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    *{box-sizing:border-box;transition:all .25s ease}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:radial-gradient(1000px 600px at 80% -10%,#141424 0%,transparent 60%),var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin-inline:auto;padding:0 20px}
+
+    header{position:sticky;top:0;z-index:10;backdrop-filter:blur(10px);background:linear-gradient(to bottom,rgba(11,11,16,.8),rgba(11,11,16,.4));border-bottom:1px solid rgba(255,255,255,.06);padding:0 24px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:12px;align-items:center;font-weight:700;letter-spacing:.2px}
+    .brand .logo{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));box-shadow:var(--shadow)}
+    .menu{display:flex;gap:18px;align-items:center}
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:14px;font-weight:600;border:1px solid transparent;cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#0b0b10}
+    .btn-ghost{background:#ffffff10;color:var(--ink);border-color:#ffffff22}
+
+    .btn:hover,.card:hover{transform:translateY(-3px);box-shadow:0 8px 18px rgba(0,0,0,.4)}
+
+    section{padding:56px 0}
+    .section-title{font-size:1.8rem;margin:0 0 10px}
+    .section-lead{color:var(--muted);margin:0 0 22px}
+
+    .grid{display:grid;gap:24px}
+    .cols-3{grid-template-columns:repeat(3,1fr)}
+    .cols-2{grid-template-columns:repeat(2,1fr)}
+
+    .card{background:var(--card);border:1px solid #ffffff12;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .cols-3 .card{height:320px;justify-content:center}
+    .cols-2 .card{height:auto;justify-content:flex-start}
+    .card h3{margin:0 0 8px;font-size:1.3rem}
+
+    /* --- Vision cards: image-blur + reveal on hover/tap --- */
+    .card-vision{position:relative;overflow:hidden;padding:0}
+    .card-vision .bg{position:absolute;inset:0;background:radial-gradient(800px 400px at 80% -10%,#141424 0%,transparent 60%),#0e0e15;background-image:var(--bg, none);background-size:cover;background-position:center;filter:blur(6px) brightness(.8);transform:scale(1.08);transition:filter .35s ease, transform .35s ease}
+    .card-vision .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.55));transition:opacity .35s ease}
+    .card-vision .inner{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:20px}
+    .card-vision h3{margin:0 0 6px;font-size:1.25rem}
+    .card-vision p{margin:0;color:var(--muted)}
+    .card-vision .desc{opacity:0;max-height:0;overflow:hidden;transition:opacity .3s ease, max-height .35s ease}
+    .card-vision:hover .bg, .card-vision.open .bg{filter:blur(2px) brightness(.9);transform:scale(1.02)}
+    .card-vision:hover .shade, .card-vision.open .shade{opacity:.85}
+    .card-vision:hover .desc, .card-vision.open .desc{opacity:1;max-height:200px}
+
+    /* Prefer reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .card-vision *{transition:none !important}
+    }
+
+    /* Mobile adjustments */
+    @media (max-width:900px){
+      .cols-3 .card{height:auto}
+      .card-vision .inner{padding:18px}
+    }
+
+    .list{display:grid;gap:8px;color:var(--muted)}
+    .gallery{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+    .gallery img{width:100%;height:140px;object-fit:cover;border-radius:12px;border:1px solid #ffffff10}
+
+    /* HERO layout: desktop = 2 colonne; mobile = 1 colonna */
+    .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center}
+    .hero-grid img{width:100%;max-width:600px;margin:0;display:block;border-radius:14px;box-shadow:var(--shadow)}
+
+    form{display:grid;gap:18px;background:var(--card);border:1px solid #ffffff15;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .field{display:grid;gap:6px}
+    label{font-weight:600;color:var(--ink);font-size:.95rem}
+    input,textarea{width:100%;background:#0f0f17;border:1px solid #ffffff22;border-radius:12px;color:var(--ink);padding:12px 14px;font:inherit}
+    input:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:var(--brand)}
+    textarea{min-height:120px;resize:vertical}
+
+    footer{padding:40px 0 80px;color:var(--muted);text-align:center;font-size:.9rem}
+
+    /* --- MOBILE --- */
+    @media (max-width: 900px){
+      .cols-2, .cols-3 { grid-template-columns: 1fr !important; }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      header{padding:0 16px}
+
+      /* HERO: 1 colonna + immagine ridotta/centrata */
+      .hero-grid{grid-template-columns:1fr}
+      .hero-grid img{width:60%;max-width:450px;margin:32px auto 24px;border-radius:10px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#home"><span class="logo"></span><span>Spoiler Club</span></a>
+      <nav class="menu"><a href="#location">Location</a><a href="#contatti" class="btn btn-ghost">Prenota</a></nav>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <h1>Nulla di straordinario si improvvisa.</h1>
+          <p class="section-lead">Spoiler è un collettivo di professionisti che realizza contenuti audio-video a 360°. Riprese, montaggi, color, editing audio, mix & mastering. Un laboratorio creativo dove la tecnica incontra la passione.</p>
+          <a class="btn btn-primary" href="#contatti">Parla con noi</a>
+        </div>
+        <div>
+          <img src="loft.jpg" alt="Finestroni e luce naturale nello studio" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section id="vision">
+      <div class="wrap">
+        <h2 class="section-title">La nostra Visione 🔭</h2>
+        <div class="grid cols-3">
+          <div class="card card-vision" style="--bg:url('vision-1.jpg')">
+            <div class="bg"></div>
+            <div class="shade"></div>
+            <div class="inner">
+              <h3>Esperienza & Innovazione</h3>
+              <p class="desc">La tecnica è la nostra lingua madre, la creatività la firma. Ogni progetto è curato con precisione, ricerca e soluzioni nuove.</p>
+            </div>
+          </div>
+          <div class="card card-vision" style="--bg:url('vision-2.jpg')">
+            <div class="bg"></div>
+            <div class="shade"></div>
+            <div class="inner">
+              <h3>Club esclusivo</h3>
+              <p class="desc">Più di una produzione: un laboratorio creativo dove professionalità, visione ed eccellenza sono la norma.</p>
+            </div>
+          </div>
+          <div class="card card-vision" style="--bg:url('vision-3.jpg')">
+            <div class="bg"></div>
+            <div class="shade"></div>
+            <div class="inner">
+              <h3>Legami autentici</h3>
+              <p class="desc">Un approccio umano prima che tecnico. Costruiamo relazioni e contenuti che rappresentano davvero chi sei.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="location">
+      <div class="wrap">
+        <h2 class="section-title">La Location</h2>
+        <p class="section-lead">115 m², luce naturale, stile loft americano. Perfetta per podcast, eventi privati, workshop e presentazioni (fino a 50 persone).</p>
+        <div class="grid cols-2">
+          <div class="card">
+            <h3>Perché scegliere il nostro spazio</h3>
+            <div class="list">
+              <span>Setup podcast completo: microfoni, mixer, cuffie</span>
+              <span>Limbo nero / verde / bianco per foto & reel</span>
+              <span>Grande tavolone per riunioni & team</span>
+              <span>Angolo dedicato a mix & mastering</span>
+              <span>Eventi privati fino a 50 persone</span>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Uno sguardo</h3>
+            <div class="gallery">
+              <img src="gallery-1.jpg" alt="Finestroni e luce naturale" loading="lazy" />
+              <img src="gallery-2.jpg" alt="Zona podcast allestita" loading="lazy" />
+              <img src="gallery-3.jpg" alt="Limbo fotografico" loading="lazy" />
+              <img src="gallery-4.jpg" alt="Tavolone riunioni" loading="lazy" />
+              <img src="gallery-5.jpg" alt="Spazio eventi" loading="lazy" />
+              <img src="gallery-6.jpg" alt="Angolo mix/master" loading="lazy" />
+            </div>
+            <p style="margin-top:18px"><a class="btn btn-ghost" href="scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti">
+      <div class="wrap">
+        <h2 class="section-title">Contatti & prenotazioni</h2>
+        <p class="section-lead">Raccontaci il tuo evento o progetto. Rispondiamo entro 24 ore.</p>
+        <div class="grid cols-2">
+          <form id="contact-form" action="https://formspree.io/f/SEGNAPOSTO" method="POST" novalidate>
+            <div class="field"><label for="name">Nome</label><input id="name" name="name" type="text" required placeholder="Il tuo nome"></div>
+            <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required placeholder="nome@esempio.it"></div>
+            <div class="field"><label for="message">Messaggio</label><textarea id="message" name="message" required placeholder="Parlaci della tua richiesta (podcast, evento, riprese…)"></textarea></div>
+            <button class="btn btn-primary" type="submit">Invia</button>
+          </form>
+          <div class="card">
+            <h3>Info</h3>
+            <p><strong>Email</strong>: <a href="mailto:info@spoiler.club">info@spoiler.club</a><br><strong>Instagram</strong>: <a href="#">@spoilerclub</a><br><strong>WhatsApp</strong>: <a href="https://wa.me/39XXXXXXXXXX">+39 XXX XXX XXXX</a></p>
+            <p>Spazio a Monza, via Magenta 9.<br>Sessioni e sopralluoghi disponibili su appuntamento.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <small>© <span id="y"></span> Spoiler Club — Tutti i diritti riservati</small>
+    </div>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    // Mobile: tap to toggle reveal on .card-vision
+    (function(){
+      const cards = document.querySelectorAll('.card-vision');
+      cards.forEach(card => {
+        card.setAttribute('tabindex','0');
+        card.setAttribute('role','button');
+        card.setAttribute('aria-expanded','false');
+        const toggle = () => {
+          const open = card.classList.toggle('open');
+          card.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+        card.addEventListener('click', toggle);
+        card.addEventListener('keyup', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }});
+      });
+      // Chiudi quando si clicca fuori (mobile)
+      document.addEventListener('click', (e)=>{
+        const isCard = e.target.closest && e.target.closest('.card-vision');
+        if(!isCard){ document.querySelectorAll('.card-vision.open').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-expanded','false');}); }
+      });
+    })();
+  </script>
+</body>
+</html>
