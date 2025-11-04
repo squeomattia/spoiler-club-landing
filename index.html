@@ -44,6 +44,27 @@
     .cols-2 .card{height:auto;justify-content:flex-start}
     .card h3{margin:0 0 8px;font-size:1.3rem}
 
+    /* Vision cards: blurred bg + reveal on hover/tap */
+    .card-vision{position:relative;overflow:hidden;padding:0}
+    .card-vision .bg{position:absolute;inset:0;background-image:var(--bg, none);background-size:cover;background-position:center;filter:blur(6px) brightness(.8);transform:scale(1.08);transition:filter .35s ease, transform .35s ease}
+    .card-vision .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.55));transition:opacity .35s ease}
+    .card-vision .inner{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:20px}
+    .card-vision h3{margin:0 0 6px;font-size:1.25rem}
+    .card-vision p{margin:0;color:var(--muted)}
+    .card-vision .desc{opacity:0;max-height:0;overflow:hidden;transition:opacity .3s ease, max-height .35s ease}
+    .card-vision:hover .bg, .card-vision.open .bg{filter:blur(2px) brightness(.9);transform:scale(1.02)}
+    .card-vision:hover .shade, .card-vision.open .shade{opacity:.85}
+    .card-vision:hover .desc, .card-vision.open .desc{opacity:1;max-height:200px}
+
+    @media (prefers-reduced-motion: reduce){
+      .card-vision *{transition:none !important}
+    }
+
+    @media (max-width: 900px){
+      .cols-3 .card{height:auto}
+      .card-vision .inner{padding:18px}
+    }
+
     .list{display:grid;gap:8px;color:var(--muted)}
     .gallery{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
     .gallery img{width:100%;height:140px;object-fit:cover;border-radius:12px;border:1px solid #ffffff10}
@@ -185,5 +206,26 @@
     </div>
   </footer>
   <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    // Enable tap/click toggle for Vision cards on mobile and keyboard
+    (function(){
+      const cards = document.querySelectorAll('.card-vision');
+      cards.forEach(card => {
+        card.setAttribute('tabindex','0');
+        card.setAttribute('role','button');
+        card.setAttribute('aria-expanded','false');
+        const toggle = () => {
+          const isOpen = card.classList.toggle('open');
+          card.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        };
+        card.addEventListener('click', toggle);
+        card.addEventListener('keyup', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }});
+      });
+      document.addEventListener('click', (e)=>{
+        const within = e.target.closest && e.target.closest('.card-vision');
+        if(!within){ document.querySelectorAll('.card-vision.open').forEach(c=>{ c.classList.remove('open'); c.setAttribute('aria-expanded','false'); }); }
+      });
+    })();
+  </script>
 </body>
 </html>
