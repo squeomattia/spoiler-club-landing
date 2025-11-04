@@ -82,6 +82,9 @@
 
     footer{padding:40px 0 80px;color:var(--muted);text-align:center;font-size:.9rem}
 
+    /* Padding e allineamento per bottoni nelle card */
+    .card .btn{margin-top:auto;padding-top:12px;}
+
     /* --- MOBILE --- */
     @media (max-width: 900px){
       .cols-2, .cols-3 { grid-template-columns: 1fr !important; }
@@ -153,7 +156,7 @@
         <h2 class="section-title">La Location</h2>
         <p class="section-lead">115 m², luce naturale, stile loft americano. Perfetta per podcast, eventi privati, workshop e presentazioni (fino a 50 persone).</p>
         <div class="grid cols-2">
-          <div class="card">
+          <div class="card" style="display:flex;flex-direction:column;">
             <h3>Perché scegliere il nostro spazio</h3>
             <div class="list">
               <span>Setup podcast completo: microfoni, mixer, cuffie</span>
@@ -162,6 +165,7 @@
               <span>Angolo dedicato a mix & mastering</span>
               <span>Eventi privati fino a 50 persone</span>
             </div>
+            <p style="margin-top:18px"><a class="btn btn-ghost" href="docs/scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a></p>
           </div>
           <div class="card">
             <h3>Uno sguardo</h3>
@@ -173,7 +177,6 @@
               <img src="img/gallery-5.jpg" alt="Spazio eventi" loading="lazy" />
               <img src="img/gallery-6.jpg" alt="Angolo mix/master" loading="lazy" />
             </div>
-            <p style="margin-top:18px"><a class="btn btn-ghost" href="docs/scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a></p>
           </div>
         </div>
       </div>
