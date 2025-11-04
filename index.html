@@ -8,7 +8,7 @@
   <meta property="og:title" content="Spoiler Club — Laboratorio creativo audio-video" />
   <meta property="og:description" content="Servizi audio-video a 360°. Location per podcast ed eventi fino a 50 persone." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/og-image.jpg" />
+  <meta property="og:image" content="/img/og-image.jpg" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   <style>
     :root{
@@ -43,29 +43,6 @@
     .cols-3 .card{height:320px;justify-content:center}
     .cols-2 .card{height:auto;justify-content:flex-start}
     .card h3{margin:0 0 8px;font-size:1.3rem}
-
-    /* --- Vision cards: image-blur + reveal on hover/tap --- */
-    .card-vision{position:relative;overflow:hidden;padding:0}
-    .card-vision .bg{position:absolute;inset:0;background:radial-gradient(800px 400px at 80% -10%,#141424 0%,transparent 60%),#0e0e15;background-image:var(--bg, none);background-size:cover;background-position:center;filter:blur(6px) brightness(.8);transform:scale(1.08);transition:filter .35s ease, transform .35s ease}
-    .card-vision .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15),rgba(0,0,0,.55));transition:opacity .35s ease}
-    .card-vision .inner{position:relative;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;height:100%;padding:20px}
-    .card-vision h3{margin:0 0 6px;font-size:1.25rem}
-    .card-vision p{margin:0;color:var(--muted)}
-    .card-vision .desc{opacity:0;max-height:0;overflow:hidden;transition:opacity .3s ease, max-height .35s ease}
-    .card-vision:hover .bg, .card-vision.open .bg{filter:blur(2px) brightness(.9);transform:scale(1.02)}
-    .card-vision:hover .shade, .card-vision.open .shade{opacity:.85}
-    .card-vision:hover .desc, .card-vision.open .desc{opacity:1;max-height:200px}
-
-    /* Prefer reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .card-vision *{transition:none !important}
-    }
-
-    /* Mobile adjustments */
-    @media (max-width:900px){
-      .cols-3 .card{height:auto}
-      .card-vision .inner{padding:18px}
-    }
 
     .list{display:grid;gap:8px;color:var(--muted)}
     .gallery{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
@@ -113,7 +90,7 @@
           <a class="btn btn-primary" href="#contatti">Parla con noi</a>
         </div>
         <div>
-          <img src="loft.jpg" alt="Finestroni e luce naturale nello studio" loading="lazy">
+          <img src="img/loft.jpg" alt="Finestroni e luce naturale nello studio" loading="lazy">
         </div>
       </div>
     </section>
@@ -122,7 +99,7 @@
       <div class="wrap">
         <h2 class="section-title">La nostra Visione 🔭</h2>
         <div class="grid cols-3">
-          <div class="card card-vision" style="--bg:url('vision-1.jpg')">
+          <div class="card card-vision" style="--bg:url('img/vision-1.jpg')">
             <div class="bg"></div>
             <div class="shade"></div>
             <div class="inner">
@@ -130,7 +107,7 @@
               <p class="desc">La tecnica è la nostra lingua madre, la creatività la firma. Ogni progetto è curato con precisione, ricerca e soluzioni nuove.</p>
             </div>
           </div>
-          <div class="card card-vision" style="--bg:url('vision-2.jpg')">
+          <div class="card card-vision" style="--bg:url('img/vision-2.jpg')">
             <div class="bg"></div>
             <div class="shade"></div>
             <div class="inner">
@@ -138,7 +115,7 @@
               <p class="desc">Più di una produzione: un laboratorio creativo dove professionalità, visione ed eccellenza sono la norma.</p>
             </div>
           </div>
-          <div class="card card-vision" style="--bg:url('vision-3.jpg')">
+          <div class="card card-vision" style="--bg:url('img/vision-3.jpg')">
             <div class="bg"></div>
             <div class="shade"></div>
             <div class="inner">
@@ -168,14 +145,14 @@
           <div class="card">
             <h3>Uno sguardo</h3>
             <div class="gallery">
-              <img src="gallery-1.jpg" alt="Finestroni e luce naturale" loading="lazy" />
-              <img src="gallery-2.jpg" alt="Zona podcast allestita" loading="lazy" />
-              <img src="gallery-3.jpg" alt="Limbo fotografico" loading="lazy" />
-              <img src="gallery-4.jpg" alt="Tavolone riunioni" loading="lazy" />
-              <img src="gallery-5.jpg" alt="Spazio eventi" loading="lazy" />
-              <img src="gallery-6.jpg" alt="Angolo mix/master" loading="lazy" />
+              <img src="img/gallery-1.jpg" alt="Finestroni e luce naturale" loading="lazy" />
+              <img src="img/gallery-2.jpg" alt="Zona podcast allestita" loading="lazy" />
+              <img src="img/gallery-3.jpg" alt="Limbo fotografico" loading="lazy" />
+              <img src="img/gallery-4.jpg" alt="Tavolone riunioni" loading="lazy" />
+              <img src="img/gallery-5.jpg" alt="Spazio eventi" loading="lazy" />
+              <img src="img/gallery-6.jpg" alt="Angolo mix/master" loading="lazy" />
             </div>
-            <p style="margin-top:18px"><a class="btn btn-ghost" href="scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a></p>
+            <p style="margin-top:18px"><a class="btn btn-ghost" href="docs/scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a></p>
           </div>
         </div>
       </div>
@@ -208,27 +185,5 @@
     </div>
   </footer>
   <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
-  <script>
-    // Mobile: tap to toggle reveal on .card-vision
-    (function(){
-      const cards = document.querySelectorAll('.card-vision');
-      cards.forEach(card => {
-        card.setAttribute('tabindex','0');
-        card.setAttribute('role','button');
-        card.setAttribute('aria-expanded','false');
-        const toggle = () => {
-          const open = card.classList.toggle('open');
-          card.setAttribute('aria-expanded', open ? 'true' : 'false');
-        };
-        card.addEventListener('click', toggle);
-        card.addEventListener('keyup', (e)=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(); }});
-      });
-      // Chiudi quando si clicca fuori (mobile)
-      document.addEventListener('click', (e)=>{
-        const isCard = e.target.closest && e.target.closest('.card-vision');
-        if(!isCard){ document.querySelectorAll('.card-vision.open').forEach(c=>{c.classList.remove('open'); c.setAttribute('aria-expanded','false');}); }
-      });
-    })();
-  </script>
 </body>
 </html>
