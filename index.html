@@ -687,6 +687,31 @@ footer .content {
     gap: 18px;
   }
 
+  /* Vision cards più piccole su mobile */
+  .vision-card {
+    width: 80%;
+    max-width: 320px;
+    margin: 0 auto;
+    border-radius: 14px;
+  }
+
+  .vision-card .vc-panel {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .vision-card .vc-center {
+    padding: 18px;
+  }
+
+  .vision-card:hover .vc-center,
+  .vision-card.is-open .vc-center {
+    padding: 24px 16px 0;
+  }
+
 /* ============== LOCATION ============== */
 
   .location-grid {
@@ -759,7 +784,7 @@ footer .content {
               <h3>Esperienza & Innovazione</h3>
             </div>
             <div class="vc-panel">
-              <p class="vc-desc">Tecnica come lingua madre, creatività come firma. Ogni progetto è curato con precisione e ricerca.</p>
+              <p class="vc-desc">In Spoiler, la tecnica è la nostra lingua madre, ma è la creatività che rende ogni progetto unico. Lavoriamo con passione e precisione per realizzare contenuti che raccontano storie memorabili, supportati dalla nostra expertise e dalla continua ricerca di nuove soluzioni.</p>
             </div>
           </article>
 
@@ -768,7 +793,7 @@ footer .content {
               <h3>Club esclusivo</h3>
             </div>
             <div class="vc-panel">
-              <p class="vc-desc">Più di una produzione: un laboratorio dove professionalità, visione ed eccellenza sono la norma.</p>
+              <p class="vc-desc">Spoiler è più di una società di produzione: è un club esclusivo, un laboratorio creativo dove l'innovazione e l'eccellenza sono la norma. Vogliamo che chi lavora con noi non si senta solo parte di un progetto, ma di una realtà che sa come combinare professionalità, creatività e visione.</p>
             </div>
           </article>
 
@@ -777,7 +802,7 @@ footer .content {
               <h3>Legami autentici</h3>
             </div>
             <div class="vc-panel">
-              <p class="vc-desc">Approccio umano prima che tecnico. Creiamo contenuti che rappresentano davvero chi sei.</p>
+              <p class="vc-desc">Il Nostro approccio non è solo tecnico, ma anche umano. Vogliamo costruire un legame autentico con i nostri clienti e collaboratori, creando contenuti che rappresentino veramente la loro essenza e la loro visione, con un linguaggio visivo che parla al cuore del pubblico.</p>
             </div>
           </article>
         </div>
@@ -876,6 +901,22 @@ footer .content {
   (function () {
     var cards = document.querySelectorAll('.vision-card');
     if (!cards.length) return;
+
+    // Auto-reveal su scroll (solo mobile)
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+    if (isMobile && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          var el = entry.target;
+          if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
+            el.classList.add('is-open');
+          } else {
+            el.classList.remove('is-open');
+          }
+        });
+      }, { threshold: [0, 0.55, 1] });
+      cards.forEach(function(card){ io.observe(card); });
+    }
 
     cards.forEach(function(card){
       card.setAttribute('tabindex','0');
