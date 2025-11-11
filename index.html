@@ -325,7 +325,6 @@ footer .content {
   margin: 0 auto;
 }
 
-/* === VISION: griglia 3 card quadrate con reveal === */
 .vision-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -412,6 +411,37 @@ footer .content {
 .vision-card.is-open .vc-panel {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* Hint “Tocca” (mobile only) */
+.vc-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  z-index: 3;
+  text-align: center;
+  font-size: .95rem;
+  color: rgba(255,255,255,.95);
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none;
+}
+/* mostra l'hint quando la card è chiusa */
+.vision-card:not(.is-open) .vc-hint {
+  opacity: 0.9;
+  transform: translateY(0);
+}
+/* nascondi l'hint quando la card è aperta */
+.vision-card.is-open .vc-hint {
+  opacity: 0;
+  transform: translateY(8px);
+}
+@media (min-width: 901px) {
+  /* su desktop niente hint */
+  .vc-hint { display: none; }
 }
 
 /* === LOCATION: 2 colonne (testo + gallery) === */
@@ -687,31 +717,6 @@ footer .content {
     gap: 18px;
   }
 
-  /* Vision cards più piccole su mobile */
-  .vision-card {
-    width: 80%;
-    max-width: 320px;
-    margin: 0 auto;
-    border-radius: 14px;
-  }
-
-  .vision-card .vc-panel {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .vision-card .vc-center {
-    padding: 18px;
-  }
-
-  .vision-card:hover .vc-center,
-  .vision-card.is-open .vc-center {
-    padding: 24px 16px 0;
-  }
-
 /* ============== LOCATION ============== */
 
   .location-grid {
@@ -783,6 +788,7 @@ footer .content {
             <div class="vc-center">
               <h3>Esperienza & Innovazione</h3>
             </div>
+            <div class="vc-hint">👆 Tocca</div>
             <div class="vc-panel">
               <p class="vc-desc">In Spoiler, la tecnica è la nostra lingua madre, ma è la creatività che rende ogni progetto unico. Lavoriamo con passione e precisione per realizzare contenuti che raccontano storie memorabili, supportati dalla nostra expertise e dalla continua ricerca di nuove soluzioni.</p>
             </div>
@@ -792,6 +798,7 @@ footer .content {
             <div class="vc-center">
               <h3>Club esclusivo</h3>
             </div>
+            <div class="vc-hint">👆 Tocca</div>
             <div class="vc-panel">
               <p class="vc-desc">Spoiler è più di una società di produzione: è un club esclusivo, un laboratorio creativo dove l'innovazione e l'eccellenza sono la norma. Vogliamo che chi lavora con noi non si senta solo parte di un progetto, ma di una realtà che sa come combinare professionalità, creatività e visione.</p>
             </div>
@@ -801,6 +808,7 @@ footer .content {
             <div class="vc-center">
               <h3>Legami autentici</h3>
             </div>
+            <div class="vc-hint">👆 Tocca</div>
             <div class="vc-panel">
               <p class="vc-desc">Il Nostro approccio non è solo tecnico, ma anche umano. Vogliamo costruire un legame autentico con i nostri clienti e collaboratori, creando contenuti che rappresentino veramente la loro essenza e la loro visione, con un linguaggio visivo che parla al cuore del pubblico.</p>
             </div>
@@ -902,33 +910,40 @@ footer .content {
     var cards = document.querySelectorAll('.vision-card');
     if (!cards.length) return;
 
-    // Auto-reveal su scroll (solo mobile)
-    var isMobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
-    if (isMobile && 'IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          var el = entry.target;
-          if (entry.isIntersecting && entry.intersectionRatio > 0.55) {
-            el.classList.add('is-open');
-          } else {
-            el.classList.remove('is-open');
-          }
-        });
-      }, { threshold: [0, 0.55, 1] });
-      cards.forEach(function(card){ io.observe(card); });
-    }
-
     cards.forEach(function(card){
       card.setAttribute('tabindex','0');
       card.addEventListener('click', function(){
-        card.classList.toggle('is-open');
+        var alreadyOpen = card.classList.contains('is-open');
+        // chiudi tutte le altre
+        document.querySelectorAll('.vision-card.is-open').forEach(function(c){
+          if (c !== card) c.classList.remove('is-open');
+        });
+        // apri/chiudi quella cliccata
+        if (alreadyOpen) {
+          card.classList.remove('is-open');
+        } else {
+          card.classList.add('is-open');
+        }
       });
       card.addEventListener('keyup', function(e){
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          card.classList.toggle('is-open');
+          var alreadyOpen = card.classList.contains('is-open');
+          document.querySelectorAll('.vision-card.is-open').forEach(function(c){
+            if (c !== card) c.classList.remove('is-open');
+          });
+          if (alreadyOpen) {
+            card.classList.remove('is-open');
+          } else {
+            card.classList.add('is-open');
+          }
         }
       });
+      // Nascondi l'hint alla prima interazione (e resta nascosto)
+      card.addEventListener('click', function(){
+        var h = card.querySelector('.vc-hint');
+        if (h) { h.style.opacity = '0'; h.style.transform = 'translateY(8px)'; }
+      }, { once: true });
     });
 
     // Chiudi quando clicchi fuori da una card
