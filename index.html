@@ -674,6 +674,12 @@ footer .content {
     gap:14px;
   }
 
+  /* Nascondi Vision e Location nella navbar su mobile */
+  .menu a[href="#vision"],
+  .menu a[href="#location"] {
+    display:none;
+  }
+
   .btn {
     padding:15px 18px;
     border-radius:11px;
@@ -831,7 +837,7 @@ footer .content {
               <li>Eventi privati fino a 50 persone</li>
             </ul>
             <div class="cta">
-              <a class="btn btn-ghost" href="docs/scheda-tecnica.pdf" download>📄 Scarica la locandina / scheda tecnica</a>
+              <a class="btn btn-ghost" href="docs/scheda-tecnica.pdf" download>📄 Scarica la locandina</a>
             </div>
           </div>
 
