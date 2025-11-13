@@ -6,6 +6,10 @@
 <title>Spoiler Club</title>
 <meta name="theme-color" content="#0b0b10" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Walter+Turncoat&amp;display=swap" rel="stylesheet">
+
 <style>
 /* ============== TOKENS ============== */
 :root {
@@ -40,7 +44,7 @@ html {
 
 body {
   margin:0;
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+  font-family: "Walter Turncoat", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif;
   background: radial-gradient(1000px 600px at 80% -10%, #141424 0%, transparent 60%), var(--page-bg);
   color:#fff;
 }
@@ -414,21 +418,26 @@ footer .content {
 }
 
 /* Hint “Tocca” (mobile only) */
-.vc-hint {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-  z-index: 3;
-  text-align: center;
-  font-size: .95rem;
-  color: rgba(255,255,255,.95);
-  text-shadow: 0 2px 6px rgba(0,0,0,.35);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .35s ease, transform .35s ease;
-  pointer-events: none;
-}
+  .vc-hint {
+    position: absolute;
+    left: 50%;
+    bottom: 34px;
+    transform: translate(-50%, 8px);
+    z-index: 3;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.7);
+    background: rgba(0,0,0,.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,.35);
+    transition: opacity .35s ease, transform .35s ease;
+    pointer-events: none;
+    animation: hint-bounce 1.6s ease-in-out infinite;
+  }
 /* mostra l'hint quando la card è chiusa */
 .vision-card:not(.is-open) .vc-hint {
   opacity: 0.9;
@@ -442,6 +451,12 @@ footer .content {
 @media (min-width: 901px) {
   /* su desktop niente hint */
   .vc-hint { display: none; }
+}
+
+@keyframes hint-bounce {
+  0%   { transform: translate(-50%, 8px) scale(1); }
+  40%  { transform: translate(-50%, 2px) scale(1.12); }
+  100% { transform: translate(-50%, 8px) scale(1); }
 }
 
 /* === LOCATION: 2 colonne (testo + gallery) === */
@@ -794,7 +809,7 @@ footer .content {
             <div class="vc-center">
               <h3>Esperienza & Innovazione</h3>
             </div>
-            <div class="vc-hint">👆 Tocca</div>
+            <div class="vc-hint" aria-hidden="true"></div>
             <div class="vc-panel">
               <p class="vc-desc">In Spoiler, la tecnica è la nostra lingua madre, ma è la creatività che rende ogni progetto unico. Lavoriamo con passione e precisione per realizzare contenuti che raccontano storie memorabili, supportati dalla nostra expertise e dalla continua ricerca di nuove soluzioni.</p>
             </div>
@@ -804,7 +819,7 @@ footer .content {
             <div class="vc-center">
               <h3>Club esclusivo</h3>
             </div>
-            <div class="vc-hint">👆 Tocca</div>
+            <div class="vc-hint" aria-hidden="true"></div>
             <div class="vc-panel">
               <p class="vc-desc">Spoiler è più di una società di produzione: è un club esclusivo, un laboratorio creativo dove l'innovazione e l'eccellenza sono la norma. Vogliamo che chi lavora con noi non si senta solo parte di un progetto, ma di una realtà che sa come combinare professionalità, creatività e visione.</p>
             </div>
@@ -814,7 +829,7 @@ footer .content {
             <div class="vc-center">
               <h3>Legami autentici</h3>
             </div>
-            <div class="vc-hint">👆 Tocca</div>
+            <div class="vc-hint" aria-hidden="true"></div>
             <div class="vc-panel">
               <p class="vc-desc">Il Nostro approccio non è solo tecnico, ma anche umano. Vogliamo costruire un legame autentico con i nostri clienti e collaboratori, creando contenuti che rappresentino veramente la loro essenza e la loro visione, con un linguaggio visivo che parla al cuore del pubblico.</p>
             </div>
