@@ -142,6 +142,21 @@ header::after {
   gap:18px;
 }
 
+.nav-link {
+  font-size: .95rem;
+  font-weight: 600;
+  position: relative;
+  transition: color .25s ease;
+}
+
+/* giallo su hover e quando la voce è attiva */
+.nav-link--vision:hover,
+.nav-link--location:hover,
+.nav-link--vision.is-active,
+.nav-link--location.is-active {
+  color: var(--location); /* il tuo giallo #FEDD19 */
+}
+
 .btn {
   display:inline-flex;
   align-items:center;
@@ -786,8 +801,8 @@ footer .content {
         <span class="name">Spoiler Club</span>
       </a>
       <nav class="menu">
-        <a href="#vision">Vision</a>
-        <a href="#location">Location</a>
+        <a href="#vision" class="nav-link nav-link--vision">Vision</a>
+        <a href="#location" class="nav-link nav-link--location">Location</a>
         <a href="#contatti" class="btn btn-ghost">Prenota</a>
       </nav>
     </div>
@@ -996,6 +1011,50 @@ footer .content {
         });
       }
     });
+  })();
+
+    // Evidenzia Vision/Location nella navbar in base alla sezione visibile
+  (function () {
+    var pairs = [
+      { id: 'vision',   selector: '.nav-link--vision' },
+      { id: 'location', selector: '.nav-link--location' }
+    ];
+
+    var items = pairs.map(function (p) {
+      var sec = document.getElementById(p.id);
+      var link = document.querySelector(p.selector);
+      if (!sec || !link) return null;
+      return { section: sec, link: link };
+    }).filter(Boolean);
+
+    if (!items.length) return;
+
+    var offset = 140; // altezza navbar + un po' di margine
+
+    function onScroll() {
+      var scrollY = window.scrollY || window.pageYOffset;
+      var active = null;
+
+      items.forEach(function (item) {
+        var rect = item.section.getBoundingClientRect();
+        var top = rect.top + scrollY - offset;
+        var bottom = top + item.section.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) {
+          active = item;
+        }
+      });
+
+      items.forEach(function (item) {
+        if (item === active) {
+          item.link.classList.add('is-active');
+        } else {
+          item.link.classList.remove('is-active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   })();
 </script>
 </body>
